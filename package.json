@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "src/*"
+  ],
+  "scripts": {
+    "backend": "yarn workspace backend",
+    "frontend": "yarn workspace frontend",
+    "start": " concurrently  --names \" backend, frontend\" \"yarn backend start:dev\"   \"yarn frontend dev\""
+  },
+  "devDependencies": {
+    "lerna": "^5.4.3"
+  },
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
+}
