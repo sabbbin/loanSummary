@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,34 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model LoanSummary {
+  SDName        String?   @db.VarChar(15)
+  PName         String?   @db.VarChar(20)
+  Accno         String?   @db.VarChar(19)
+  Aname         String?   @db.VarChar(24)
+  O_Prin        Int?
+  PrinDr        Decimal?  @db.Decimal(9, 2)
+  PrinCr        Decimal?  @db.Decimal(9, 2)
+  C_Prin        Decimal?  @db.Decimal(9, 2)
+  O_Other       Int?
+  OtherDr       Int?
+  OtherCr       Int?
+  C_Other       Int?
+  O_IntOut      Int?
+  CCalcInt      Decimal?  @db.Decimal(8, 2)
+  IntPd         Decimal?  @db.Decimal(8, 2)
+  LastYrIntPd   Int?
+  ThisYrIntPd   Decimal?  @db.Decimal(8, 2)
+  C_IntOut      Decimal?  @db.Decimal(20, 14)
+  O_PenaltyOut  Int?
+  CCalcPenalty  Decimal?  @db.Decimal(18, 13)
+  PenaltyPd     Decimal?  @db.Decimal(7, 2)
+  C_PenaltyOut  Decimal?  @db.Decimal(22, 18)
+  IntRebate     Decimal?  @db.Decimal(6, 2)
+  PenaltyRebate Decimal?  @db.Decimal(6, 2)
+  TotAmtPd      Decimal?  @db.Decimal(9, 2)
+  ReportDate    DateTime? @db.DateTime(0)
+  Id            Int       @id @default(autoincrement())
 }
