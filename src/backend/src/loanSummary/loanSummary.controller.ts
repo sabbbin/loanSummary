@@ -10,11 +10,16 @@ export class LoanSummaryController {
   constructor(private loanSummary: LoanSummaryService) {}
 
   @Get()
-  getLoanSummaryByDate(@Query() query: loanSummaryDto) {
-    return Promise.all([
+  async getLoanSummaryByDate(@Query() query: loanSummaryDto) {
+    let dataAndCount = await Promise.all([
       this.loanSummary.getLoanDataByDate(query),
       this.loanSummary.getCountLoanDataByDate(query),
     ]);
+
+    return {
+      loanSummary: dataAndCount[0],
+      count: dataAndCount[1],
+    };
   }
 
   @Get('download')

@@ -4,36 +4,29 @@ import {
   IsDate,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   MaxDate,
   MinDate,
-  minDate,
 } from 'class-validator';
+import * as dayjs from 'dayjs';
 
 export class loanSummaryDto {
   @Type(() => Date)
   @Transform(({ value }) => new Date(value))
-  @MinDate(new Date(2018, 1, 1))
-  @IsNotEmpty()
   @IsDate()
-  startDate: Date;
+  startDate: Date = dayjs().subtract(1, 'd').toDate();
 
   @Type(() => Date)
   @Transform(({ value }) => new Date(value))
-  @MaxDate(new Date())
-  @IsNotEmpty()
   @IsDate()
-  endDate: Date;
+  endDate: Date = new Date();
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  @IsNotEmpty()
-  pageNumber: number;
+  pageNumber: number = 0;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  @IsNotEmpty()
-  pageSize: number;
+  pageSize: number = 25;
 }
 
 export class downloadLoanSummaryDto extends PartialType(loanSummaryDto) {

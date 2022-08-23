@@ -8,8 +8,8 @@ export class LoanSummaryService {
   constructor(private prisma: PrismaService) {}
   getLoanDataByDate(query) {
     return this.prisma.loanSummary.findMany({
-      skip: (query.pageNumber * query.pageSize) | 0,
-      take: query.pageSize != 0 ? query.pageSize : undefined,
+      skip: query.pageNumber * query.pageSize,
+      take: query.pageSize,
       where: {
         ReportDate: {
           gte: query.startDate,
