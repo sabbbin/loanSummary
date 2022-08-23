@@ -8,7 +8,7 @@ export class LoanSummaryService {
   constructor(private prisma: PrismaService) {}
   getLoanDataByDate(query) {
     return this.prisma.loanSummary.findMany({
-      skip: query.pageNumber * query.pageSize,
+      skip: (query.pageNumber * query.pageSize) | 0,
       take: query.pageSize,
       where: {
         ReportDate: {
@@ -30,10 +30,9 @@ export class LoanSummaryService {
     });
   }
   async getDownloadLoanSummaryByDate(query: downloadLoanSummaryDto) {
-    query.pageNumber = 0;
-    query.pageSize = 0;
-
+    query.pageSize = undefined;
     const downloadData = await this.getLoanDataByDate(query);
+
     const csvString = [];
     const header = Object.keys(downloadData[0]);
     csvString.push(header);
