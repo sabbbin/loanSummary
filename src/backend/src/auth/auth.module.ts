@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
-import { JwtAuthGuard } from './auth.jwt.guard';
-import { JwtStrategy } from './auth.jwt.strategy';
-import { LocalGuardStrategy } from './auth.localguard.strategy';
-import { RefreshTokenStrategy } from './auth.refreshToken.strategy';
+import { JwtAuthGuard } from '../guards/auth.jwt.guard';
+import { JwtStrategy } from '../guards/auth.jwt.strategy';
+
+import { RefreshTokenStrategy } from '../guards/auth.refreshToken.strategy';
 import { AuthService } from './auth.service';
+import { LocalGuardStrategy } from 'src/guards/auth.localguard.strategy';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { AuthService } from './auth.service';
     JwtModule.register({
       secret: 'abc',
       signOptions: {
-        expiresIn: '10min',
+        expiresIn: '1d',
       },
     }),
   ],
@@ -25,6 +27,10 @@ import { AuthService } from './auth.service';
     JwtStrategy,
     LocalGuardStrategy,
     RefreshTokenStrategy,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
   controllers: [AuthController],
 })

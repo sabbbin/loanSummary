@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Req, Session, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { RefreshAuthGuard } from './auth.refreshToken.guard';
+import { IsPublic } from 'src/guards/public.decorators';
+import { RefreshAuthGuard } from '../guards/auth.refreshToken.guard';
 
 import { AuthService } from './auth.service';
 
@@ -9,6 +10,7 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
   @Post('login')
+  @IsPublic()
   @UseGuards(AuthGuard('local'))
   loginUser(@Req() req: Request, @Session() session: Record<string, unknown>) {
     const { refreshToken, ...rest } = this.authService.login(req.user);
@@ -17,6 +19,7 @@ export class AuthController {
   }
 
   @Get('refresh')
+  @IsPublic()
   @UseGuards(RefreshAuthGuard)
   getRefreshToken(@Req() req: Request) {
     const value = this.authService.login(req.user, false);

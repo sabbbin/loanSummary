@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as argon from 'argon2';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -10,7 +11,7 @@ export class AuthService {
   ) {}
   async validateUser(usename: string, password: string) {
     let user = await this.userService.getUserByUsername(usename);
-    if (user && user.password == password) {
+    if (user && (await argon.verify(user.password, password))) {
       const { password, ...rest } = user;
       return rest;
     }
@@ -20,21 +21,19 @@ export class AuthService {
   login(user, refreshTokenFlag = true) {
     let payload = {
       id: user.id,
-      username: user.usename,
-      role: user.role,
     };
-    const { password, ...rest } = user;
+
     const sessionObj: Record<string, unknown> = {
       access_token: this.jwtService.sign(payload),
-      user: rest,
+      user,
     };
     if (refreshTokenFlag) {
       sessionObj.refreshToken = this.jwtService.sign(payload, {
         secret: 'refresh',
         expiresIn: '2d',
       });
-
-      return sessionObj;
     }
+
+    return sessionObj;
   }
 }
