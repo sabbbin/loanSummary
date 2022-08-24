@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { Apptable } from "./pages/user";
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return <Navbar />;
+export function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/user" element={<Apptable />} />
+        <Route path="/navbar" element={<Navbar />} />
+      </Routes>
+    </>
+  );
 }
-
-export default App;
