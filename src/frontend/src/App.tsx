@@ -8,7 +8,12 @@ function App() {
 
   return (
     <>
-      <LoginPage />
+      <Routes>
+        <Route path="/navbar" element={<Navbar />} />
+        <Route path="/PersistentDrawerLeft" element={<PersistentDrawerLeft />}>
+          <Route path="user" element={<Apptable />} />
+        </Route>
+      </Routes>
     </>
   );
 }
