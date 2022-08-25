@@ -199,6 +199,42 @@ export default function LoanSummary() {
     }
   }, [startDate, endDate]);
 
+  let { data: resdata, refetch: downloadFromApi } = useQuery(
+    ["login"],
+    () =>
+      axios
+        .get("api/loanSummary/download", {
+          params: {
+            startDate,
+            endDate,
+          },
+          headers: {
+            Authorization: "Bearer token",
+          },
+        })
+        .then((res) => res.data),
+    {}
+  );
+
+  const downloadCSV = (url: string, filename: string) => {
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  };
+  useEffect(() => {
+    if (resdata) {
+      const blob = new Blob([resdata], {
+        type: "type/csv",
+      });
+      const url = URL.createObjectURL(blob);
+      let filename = "exportLoanSummary";
+      downloadCSV(url, `${filename}.csv`);
+    }
+  }, [resdata]);
+
   return (
     <>
       <Box
@@ -210,7 +246,9 @@ export default function LoanSummary() {
           width: "90vw",
         }}
       >
-        <Button variant="contained">Download</Button>
+        <Button variant="contained" onClick={() => downloadFromApi()}>
+          Download
+        </Button>
         <div>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <MobileDatePicker
@@ -253,49 +291,56 @@ export default function LoanSummary() {
         </div>
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <StyledTableCell key={headerGroup.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </StyledTableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableHead>
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <StyledTableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <StyledTableCell
-                    key={cell.id}
-                    sx={{
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </StyledTableCell>
-                ))}
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <TablePagination
-          count={data.totalCount}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </TableContainer>
+      {data.data.length > 0 ? (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <StyledTableCell key={headerGroup.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </StyledTableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHead>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <StyledTableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <StyledTableCell
+                      key={cell.id}
+                      sx={{
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </StyledTableCell>
+                  ))}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <TablePagination
+            count={data.totalCount}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </TableContainer>
+      ) : (
+        <div> No Record</div>
+      )}
     </>
   );
 }
