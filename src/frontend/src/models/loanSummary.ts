@@ -1,0 +1,32 @@
+import IWithTotalCount from "./withTotalCounts";
+export type ILoanSummary = {
+  SDName: String;
+  PName: String;
+  Accno: String;
+  Aname: String;
+  O_Prin: number;
+  PrinDr: number;
+  PrinCr: number;
+  C_Prin: number;
+  O_Other: number;
+  OtherDr: number;
+  OtherCr: number;
+  C_Other: number;
+  O_IntOut: number;
+  CCalcInt: number;
+  IntPd: number;
+  LastYrIntPd: number;
+  ThisYrIntPd: number;
+  C_IntOut: number;
+  O_PenaltyOut: number;
+  CCalcPenalty: number;
+  PenaltyPd: number;
+  C_PenaltyOut: number;
+  IntRebate: number;
+  PenaltyRebate: number;
+  TotAmtPd: number;
+  ReportDate: Date;
+  Id: number;
+};
+
+export type LoanSummaryWithCount = IWithTotalCount<ILoanSummary>;

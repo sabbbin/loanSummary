@@ -17,8 +17,8 @@ export class LoanSummaryController {
     ]);
 
     return {
-      loanSummary: dataAndCount[0],
-      count: dataAndCount[1],
+      data: dataAndCount[0],
+      totalCount: dataAndCount[1],
     };
   }
 
