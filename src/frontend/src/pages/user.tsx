@@ -26,6 +26,7 @@ import axios from "axios";
 import StyledTableCell from "../components/StyledTableCell";
 import StyledTableRow from "../components/StyledTableRow";
 import AddIcon from "@mui/icons-material/Add";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const columnHelper = createColumnHelper<IUser>();
 
@@ -49,27 +50,26 @@ export function Apptable() {
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("username", {
-        id: "Username",
-        cell: (info) => {
-          info.getValue();
-        },
+        id: "username",
+        cell: (info) => info.getValue(),
+
         header: () => <span>User Name</span>,
       }),
       columnHelper.accessor("createdAt", {
-        id: "Created At",
-        cell: (info) => {
-          dayjs(info.getValue()).format();
-        },
+        id: "createdAt",
+        cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
         header: () => <span>Created At</span>,
       }),
       columnHelper.accessor("status", {
-        header: "Status",
+        header: "status",
       }),
       columnHelper.display({
         header: "Actions",
 
         cell: (info) => (
-          <IconButton onClick={handleClick(info.row.original)}></IconButton>
+          <IconButton onClick={handleClick(info.row.original)}>
+            <MoreVertIcon />
+          </IconButton>
         ),
       }),
     ],
@@ -83,7 +83,7 @@ export function Apptable() {
 
   const { data } = useQuery<IUserWithTotalCount>(
     ["users"],
-    () => axios.get("api/user"),
+    () => axios.get("/api/user"),
     {
       initialData: {
         data: [],
