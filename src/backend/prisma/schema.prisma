@@ -38,7 +38,7 @@ model LoanSummary {
 }
 
 model User {
-  ID        Int      @id @unique @default(autoincrement())
+  id        Int      @id @unique @default(autoincrement())
   username  String
   password  String
   status    String

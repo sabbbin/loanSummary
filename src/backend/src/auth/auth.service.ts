@@ -11,14 +11,16 @@ export class AuthService {
   ) {}
   async validateUser(usename: string, password: string) {
     let user = await this.userService.getUserByUsername(usename);
-    if (user && (await argon.verify(user.password, password))) {
+    if (user && argon.verify(user.password, password)) {
       const { password, ...rest } = user;
+
       return rest;
     }
     return null;
   }
 
   login(user, refreshTokenFlag = true) {
+    console.log(user);
     let payload = {
       id: user.id,
     };

@@ -11,6 +11,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useFormik } from "formik";
+import { useAuthenticationStore } from "../zustard";
 
 type LoginUserDate = {
   username: string;
@@ -31,11 +32,12 @@ type LoginUserOutput = {
 };
 
 export default function LoginPage() {
+  const loginFunc = useAuthenticationStore((state) => state.loginFunc);
   const { data, mutate } = useMutation<LoginUserOutput, unknown, LoginUserDate>(
     (values) => axios.post("api/login", values),
     {
       onSuccess: (data) => {
-        console.log("aldf");
+        console.log("adafa", data);
       },
     }
   );

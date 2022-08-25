@@ -331,11 +331,7 @@
     "@babel/plugin-syntax-jsx" "^7.18.6"
     "@babel/types" "^7.18.10"
 
-<<<<<<< HEAD
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.18.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
-=======
 "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.18.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.7":
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
   version "7.18.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
@@ -411,9 +407,6 @@
     source-map "^0.5.7"
     stylis "4.0.13"
 
-<<<<<<< HEAD
-"@emotion/cache@^11.10.0", "@emotion/cache@^11.10.1":
-=======
 "@emotion/cache@^11.10.0":
   version "11.10.2"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.10.2.tgz#8e795493b46d2a55162e110396829a7240fa0f71"
@@ -426,7 +419,6 @@
     stylis "4.0.13"
 
 "@emotion/cache@^11.10.1":
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
   version "11.10.3"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.10.3.tgz#c4f67904fad10c945fea5165c3a5a0583c164b87"
   integrity sha512-Psmp/7ovAa8appWh3g51goxu/z3iVms7JXOreq136D8Bbn6dYraPnmL6mdM8GThEx9vwSn92Fz+mGSjBzN8UPQ==
@@ -1511,7 +1503,6 @@
     npmlog "^6.0.2"
     write-file-atomic "^4.0.1"
 
-<<<<<<< HEAD
 "@mapbox/node-pre-gyp@^1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.9.tgz#09a8781a3a036151cdebbe8719d6f8b25d4058bc"
@@ -1620,8 +1611,6 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-=======
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
 "@nestjs/cli@^9.0.0":
   version "9.0.0"
   resolved "https://registry.npmjs.org/@nestjs/cli/-/cli-9.0.0.tgz"
@@ -2011,7 +2000,6 @@
     node-addon-api "^3.2.1"
     node-gyp-build "^4.3.0"
 
-<<<<<<< HEAD
 "@phc/format@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@phc/format/-/format-1.0.0.tgz#b5627003b3216dc4362125b13f48a4daa76680e4"
@@ -2022,8 +2010,6 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
-=======
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
 "@prisma/client@^4.2.1":
   version "4.2.1"
   resolved "https://registry.npmjs.org/@prisma/client/-/client-4.2.1.tgz"
@@ -4895,9 +4881,6 @@ hexoid@1.0.0:
   resolved "https://registry.npmjs.org/hexoid/-/hexoid-1.0.0.tgz"
   integrity sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==
 
-<<<<<<< HEAD
-hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1:
-=======
 history@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
@@ -4905,8 +4888,7 @@ history@^5.2.0:
   dependencies:
     "@babel/runtime" "^7.7.6"
 
-hoist-non-react-statics@^3.3.1:
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
+hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -7241,14 +7223,11 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-<<<<<<< HEAD
 react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-=======
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -7264,8 +7243,6 @@ react-refresh@^0.14.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-<<<<<<< HEAD
-=======
 react-router-dom@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.3.0.tgz#a0216da813454e521905b5fa55e0e5176123f43d"
@@ -7281,7 +7258,6 @@ react-router@6.3.0:
   dependencies:
     history "^5.2.0"
 
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
 react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
@@ -8370,11 +8346,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-<<<<<<< HEAD
 use-sync-external-store@1.2.0, use-sync-external-store@^1.2.0:
-=======
-use-sync-external-store@^1.2.0:
->>>>>>> 0c78bd71eb44607563eb0956abdca3c729541f55
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
