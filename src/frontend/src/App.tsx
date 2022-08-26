@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import LoanSummary from "./pages/loanSummary";
 
 import LoginPage from "./pages/LoginPage";
-import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import PersistentDrawerLeft from "./components/BaseLayout";
 import { Apptable } from "./pages/user";
