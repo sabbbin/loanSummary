@@ -1,4 +1,3 @@
-import { Logout } from "@mui/icons-material";
 import create from "zustand";
 import IUser from "./models/user";
 
