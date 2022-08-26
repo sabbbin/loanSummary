@@ -8,7 +8,8 @@
   "scripts": {
     "backend": "yarn workspace backend",
     "frontend": "yarn workspace frontend",
-    "start": " concurrently  --names \" backend, frontend\" \"yarn backend start:dev\"   \"yarn frontend dev\""
+    "start": " concurrently  --names \" backend, frontend\" \"yarn backend start:dev\"   \"yarn frontend dev\"", 
+    "db:generate": "yarn backend run prisma generate"
   },
   "devDependencies": {
     "lerna": "^5.4.3"
