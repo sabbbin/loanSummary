@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   login(user, refreshTokenFlag = true) {
-    console.log(user);
     let payload = {
       id: user.id,
     };

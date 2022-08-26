@@ -12,6 +12,9 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useAuthenticationStore } from "../zustard";
+import IUser from "../models/user";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type LoginUserDate = {
   username: string;
@@ -25,19 +28,16 @@ enum ROLE {
 
 type LoginUserOutput = {
   access_token: string;
-  user: {
-    username: string;
-    role: ROLE;
-  };
+  user: IUser;
 };
 
 export default function LoginPage() {
-  const loginFunc = useAuthenticationStore((state) => state.loginFunc);
+  const { loginFunc, loginstatus } = useAuthenticationStore((state) => state);
   const { data, mutate } = useMutation<LoginUserOutput, unknown, LoginUserDate>(
-    (values) => axios.post("api/login", values),
+    (values) => axios.post("api/login", values).then((res) => res.data),
     {
       onSuccess: (data) => {
-        console.log("adafa", data);
+        loginFunc(data.access_token, data.user);
       },
     }
   );
@@ -51,7 +51,13 @@ export default function LoginPage() {
       mutate(values);
     },
   });
-
+  let navigate = useNavigate();
+  console.log("adf", loginstatus);
+  useEffect(() => {
+    if (loginstatus == "IsLoggedIn") {
+      navigate("/loansummary");
+    }
+  }, [loginstatus]);
   return (
     <Paper elevation={4}>
       <Grid

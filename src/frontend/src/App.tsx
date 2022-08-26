@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoanSummary from "./pages/loanSummary";
 
@@ -10,6 +8,9 @@ import PersistentDrawerLeft from "./components/BaseLayout";
 import { Apptable } from "./pages/user";
 import axios from "axios";
 import { useAuthenticationStore } from "./zustard";
+import { AdminGuard } from "./Protected Route/admin.guard";
+import { AuthGuard } from "./Protected Route/auth.guard";
+import Logout from "./pages/Logout";
 
 export function App() {
   const loginInfoFunction = useAuthenticationStore((state) => state.loginFunc);
@@ -45,7 +46,16 @@ export function App() {
         <Route path="/PersistentDrawerLeft" element={<PersistentDrawerLeft />}>
           <Route path="user" element={<Apptable />} />
         </Route>
-        <Route path="" element={<LoginPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route
+          path="/logout"
+          element={<AuthGuard component={Logout} />}
+        ></Route>
+
+        <Route
+          path="/loansummary"
+          element={<AuthGuard component={LoanSummary} />}
+        ></Route>
       </Routes>
     </>
   );

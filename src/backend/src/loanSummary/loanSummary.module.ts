@@ -8,4 +8,4 @@ import { LoanSummaryService } from './loanSummary.service';
   controllers: [LoanSummaryController],
   providers: [LoanSummaryService, PrismaService],
 })
-export class LoanSummary {}
+export class LoanSummaryModule {}

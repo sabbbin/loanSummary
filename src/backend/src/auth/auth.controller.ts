@@ -1,6 +1,14 @@
-import { Controller, Get, Post, Req, Session, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { IsPublic } from 'src/guards/public.decorators';
 import { RefreshAuthGuard } from '../guards/auth.refreshToken.guard';
 
@@ -24,5 +32,15 @@ export class AuthController {
   getRefreshToken(@Req() req: Request) {
     const value = this.authService.login(req.user, false);
     return value;
+  }
+
+  @Get('logout')
+  @IsPublic()
+  logoutUser(@Req() request, @Res() res) {
+    request.session.destroy((err) => {
+      res.send({
+        success: 'successfully logout',
+      });
+    });
   }
 }
