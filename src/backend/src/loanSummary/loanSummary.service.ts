@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { downloadLoanSummaryDto, loanSummaryDto } from './loanSummary.Dto';
 import * as fs from 'fs';
+import { LoanSummary, Prisma } from '@prisma/client';
 
 @Injectable()
 export class LoanSummaryService {
   constructor(private prisma: PrismaService) {}
-  getLoanDataByDate(query) {
-    return this.prisma.loanSummary.findMany({
+  async getLoanDataByDate(query) {
+    query.sortColumn = JSON.parse(query.sortColumn);
+    let data = await this.prisma.loanSummary.findMany({
       skip: (query.pageNumber * query.pageSize) | 0,
       take: query.pageSize,
       where: {
@@ -16,7 +18,11 @@ export class LoanSummaryService {
           lte: query.endDate,
         },
       },
+      orderBy: {
+        [query.sortColumn.id]: query.sortColumn.desc ? 'desc' : 'asc',
+      },
     });
+    return data;
   }
 
   getCountLoanDataByDate(query: loanSummaryDto) {

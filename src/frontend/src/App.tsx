@@ -8,7 +8,6 @@ import PersistentDrawerLeft from "./components/BaseLayout";
 import { Apptable } from "./pages/user";
 import axios from "axios";
 import { useAuthenticationStore } from "./zustard";
-import { AdminGuard } from "./Protected Route/admin.guard";
 import { AuthGuard } from "./Protected Route/auth.guard";
 import Logout from "./pages/Logout";
 

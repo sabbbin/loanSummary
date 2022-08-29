@@ -22,6 +22,8 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
@@ -56,8 +58,13 @@ export default function LoanSummary() {
   const [startDate, setStartDate] = useState(new Date("1990-10-1"));
   const [endDate, setEndDate] = useState(new Date());
   const [checkDate, setCheckDate] = useState(false);
+
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "SDName", desc: true },
+  ]);
+
   const { data } = useQuery<unknown, unknown, LoanSummaryWithCount>(
-    ["loanSummary", page, rowsPerPage, startDate, endDate],
+    ["loanSummary", page, rowsPerPage, startDate, sorting, endDate],
     () =>
       axios
         .get("api/loanSummary", {
@@ -66,6 +73,7 @@ export default function LoanSummary() {
             endDate,
             pageNumber: page,
             pageSize: rowsPerPage,
+            sortColumn: sorting[0],
           },
           headers: {
             Authorization: "bearer " + access_token,
@@ -81,7 +89,6 @@ export default function LoanSummary() {
   );
 
   const columnHelper = createColumnHelper<ILoanSummary>();
-
   const columns = useMemo(
     () => [
       columnHelper.accessor((row, i) => i + 1 + rowsPerPage * page, {
@@ -92,15 +99,13 @@ export default function LoanSummary() {
       }),
 
       columnHelper.accessor("PName", {
-        cell: (value) => value.getValue(),
+        cell: (props) => props.getValue(),
+        enableSorting: false,
       }),
       columnHelper.accessor("Accno", {
         cell: (value) => value.getValue(),
       }),
 
-      columnHelper.accessor("Aname", {
-        cell: (value) => value.getValue(),
-      }),
       columnHelper.accessor("O_Prin", {
         cell: (value) => value.getValue(),
       }),
@@ -178,6 +183,11 @@ export default function LoanSummary() {
       columnHelper.accessor("ReportDate", {
         cell: (value) => value.getValue(),
       }),
+
+      columnHelper.accessor("Aname", {
+        cell: (value) => value.getValue(),
+        enablePinning: true,
+      }),
     ],
     [page, rowsPerPage]
   );
@@ -194,10 +204,17 @@ export default function LoanSummary() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const table = useReactTable({
     data: data.data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    debugTable: true,
   });
 
   useEffect(() => {
@@ -307,13 +324,32 @@ export default function LoanSummary() {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <StyledTableCell key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
+                  <StyledTableCell
+                    key={header.id}
+                    sx={{
+                      whiteSpace: "nowrap",
+                      alignItems: "center",
+                    }}
+                  >
+                    {header.isPlaceholder ? null : (
+                      <div
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
+                        {{
+                          asc: " 🔼",
+                          desc: " 🔽",
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
+                    )}
                   </StyledTableCell>
                 ))}
               </TableRow>
