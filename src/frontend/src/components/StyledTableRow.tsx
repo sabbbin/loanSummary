@@ -1,6 +1,6 @@
 import { styled, TableRow } from "@mui/material";
 
-const StyleTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
@@ -9,4 +9,4 @@ const StyleTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default StyleTableRow;
+export default StyledTableRow;

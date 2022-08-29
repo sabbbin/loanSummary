@@ -32,11 +32,10 @@ export class loanSummaryDto {
   @IsNumber()
   pageSize: number = 25;
 
-  @IsString()
   @IsOptional()
   sortColumn?: {
-    id: string;
-    desc: boolean;
+    id?: string;
+    desc?: boolean;
   };
 }
 

@@ -8,8 +8,7 @@ import { LoanSummary, Prisma } from '@prisma/client';
 export class LoanSummaryService {
   constructor(private prisma: PrismaService) {}
   async getLoanDataByDate(query) {
-    query.sortColumn = JSON.parse(query.sortColumn);
-    let data = await this.prisma.loanSummary.findMany({
+    let tempQuery = {
       skip: (query.pageNumber * query.pageSize) | 0,
       take: query.pageSize,
       where: {
@@ -18,10 +17,16 @@ export class LoanSummaryService {
           lte: query.endDate,
         },
       },
-      orderBy: {
+    };
+    if (query.sortColumn) {
+      query.sortColumn = JSON.parse(query.sortColumn);
+
+      tempQuery['orderBy'] = {
         [query.sortColumn.id]: query.sortColumn.desc ? 'desc' : 'asc',
-      },
-    });
+      };
+    }
+    console.log('adfadsf', query.sortColumn);
+    let data = await this.prisma.loanSummary.findMany({ ...tempQuery });
     return data;
   }
 

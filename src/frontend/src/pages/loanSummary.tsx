@@ -29,26 +29,8 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
 import { useAuthenticationStore } from "../zustard";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
+import StyledTableCell from "../components/StyledTableCell";
+import StyledTableRow from "../components/StyledTableRow";
 
 export default function LoanSummary() {
   const [page, setPage] = useState(0);
@@ -59,10 +41,8 @@ export default function LoanSummary() {
   const [endDate, setEndDate] = useState(new Date());
   const [checkDate, setCheckDate] = useState(false);
 
-  const [sorting, setSorting] = useState<SortingState>([
-    { id: "SDName", desc: true },
-  ]);
-
+  const [sorting, setSorting] = useState<SortingState>([]);
+  console.log("sorting", sorting);
   const { data } = useQuery<unknown, unknown, LoanSummaryWithCount>(
     ["loanSummary", page, rowsPerPage, startDate, sorting, endDate],
     () =>
